@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+
+{% block title %} Daftar Siswa {% endblock %}
+
+{% block content %}
+    <div class="flex justify-between mb-4">
+        <div>
+            <h1 class="text-3xl font-bold text-slate-900">
+                Daftar Siswa
+            </h1>
+            <p class="text-gray-600">Halaman daftar siswa-siswa kelas X - HSI Boarding School Purworejo</p></div>
+        
+
+    
+    
+    <!-- <p>{{ data }}</p> -->
+     <div class="my-5 ">
+        <a href="{% url 'siswa_create' %}" class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition">
+            + Tambah Siswa
+        </a>
+     </div>
+    </div>
+    
+     
+    <!-- data table ntar disini -->
+     
+    <table class="w-full border-collapse text-sm">
+        <thead>
+            <tr class="bg-slate-100 text-left text-slate-700">
+                <th class="p-3 border border-slate-200">ID</th>
+                <th class="p-3 border border-slate-200">Nama</th>
+                <th class="p-3 border border-slate-200">Umur</th>
+                <th class="p-3 border border-slate-200">Tgl Lahir</th>
+                <th class="p-3 border border-slate-200">Status Hadir</th>
+                <th class="p-3 border border-slate-200">Nilai Akhir</th>
+                <th class="p-3 border border-slate-200">Aksi</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- ntar disini isi data dari db nya -->
+             <!-- Loop Tombolnya -->
+             {% for siswa in data %}
+             <tr>
+                <td class="p-3 border border-slate-200">
+                    {{ siswa.id }}
+                </td>
+                <td class="p-3 border border-slate-200">
+                    {{ siswa.nama }}
+                </td>
+                <td class="p-3 border border-slate-200">
+                    {{ siswa.umur }}
+                </td>
+                <td class="p-3 border border-slate-200">
+                    {{ siswa.tgl_lahir }}
+                </td>
+                <td class="p-3 border border-slate-200">
+                    {% if siswa.hadir %}
+                        <span class="px-2 py-1 rounded-md bg-blue-100 text-slate-700 hover:bg-slate-200" >Hadir</span>
+                    {% else %}
+                        <span class="px-2 py-[2px] rounded-md bg-red-100 text-slate-700 hover:bg-red-200">Tidak Hadir</span>
+                    {% endif %}
+                </td>
+                <td class="p-3 border border-slate-200">
+                    {{ siswa.nilai }}
+                </td>
+                <td class=> 
+                    <!-- Tombol Detail -->
+                    <a href="{% url 'siswa_detail' siswa.id %}" class="px-3 py-1 mx-1 rounded-md bg-blue-100 text-slate-700 hover:bg-blue-200">
+                        Detail
+                    </a>
+                    <!-- Tombol hapus -->
+                    <a href="{% url 'siswa_delete' siswa.id %}" class="px-3 py-1 mx-1 rounded-md bg-red-100 text-red-700 hover:bg-red-200">
+                        Hapus
+                    </a>
+                    <a href="{% url 'siswa_update' siswa.id %}" class="px-3 py-1 mx-1 bg-yellow-100 text-yellow-700 rounded-lg text-sm font-medium hover:bg-yellow-200">
+                        Edit
+                    </a>
+                </td>
+             </tr>
+             {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

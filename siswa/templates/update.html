@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% block title %}Edit Data Siswa{% endblock %}
+
+{% block content %}
+<h1 class="text-3xl font-bold text-slate-900">Edit Siswa</h1>
+<p class="text-gray-600">Halaman edit data siswa kelas X - HSI Boarding School Purworejo</p>
+<br>
+
+<!-- Atribut method="POST" memicu jalannya logic simpan di views.py -->
+<form method="POST" class="max-w-lg space-y-4">
+    {% csrf_token %} <!-- Wajib ada demi keamanan data POST -->
+    
+    <div>
+        <label class="block font-medium text-slate-700">Nama Lengkap</label>
+        <!-- value="{{ siswa.nama }}" menampilkan data lama di kotak input -->
+        <input type="text" name="nama" value="{{ siswa.nama }}" class="w-full border p-2 rounded" required>
+    </div>
+
+    <div class="flex gap-4">
+        <div class="flex-1">
+            <label class="block font-medium text-slate-700">Umur</label>
+            <input type="number" name="umur" value="{{ siswa.umur }}" class="w-full border p-2 rounded" required>
+        </div>
+        <div class="flex-1">
+            <label class="block font-medium text-slate-700">Tanggal Lahir</label>
+            <!-- Format date di-filter ke Y-m-d agar bisa dibaca input tanggal bawaan browser -->
+            <input type="date" name="tgl_lahir" value="{{ siswa.tgl_lahir|date:'Y-m-d' }}" class="w-full border p-2 rounded" required>
+        </div>
+    </div>
+
+    <div>
+        <label class="block font-medium text-slate-700">Nilai Akhir</label>
+        <input type="number" name="nilai_akhir" value="{{ siswa.nilai }}" class="w-full border p-2 rounded" required>
+    </div>
+
+    <div>
+        <label class="block mb-2 font-medium text-slate-700">Status Kehadiran</label>
+        <div class="flex items-center gap-6">
+            <!-- Logika if checked menentukan radio button mana yang aktif berdasarkan data lama -->
+            <div class="flex items-center gap-2">
+                <input type="radio" name="status_hadir" id="hadir" value="true" {% if siswa.hadir %}checked{% endif %} required>
+                <label for="hadir" class="text-slate-900">Hadir</label>
+            </div>
+            
+            <div class="flex items-center gap-2">
+                <input type="radio" name="status_hadir" id="tidak_hadir" value="false" {% if not siswa.hadir %}checked{% endif %} required>
+                <label for="tidak_hadir" class="text-slate-900">Tidak Hadir</label>
+            </div>
+        </div>
+    </div>
+
+    <div class="pt-4">
+        <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 font-medium text-sm">
+            Update Data
+        </button>
+        <a href="{% url 'siswa_list' %}" class="text-gray-500 ml-4 hover:underline text-sm font-medium">Batal</a>
+    </div>
+</form>
+{% endblock %}

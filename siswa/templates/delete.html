@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block title %}Konfirmasi Hapus Siswa{% endblock %}
+
+{% block content %}
+<div class="max-w-xl mx-auto mt-10">
+    <!-- Kotak Peringatan Merah -->
+    <div class="bg-red-50 border-l-4 border-red-500 p-4 rounded-r-lg mb-6">
+        <h2 class="text-red-800 font-bold text-lg">Apakah Anda yakin ingin menghapus data ini?</h2>
+        <p class="text-red-700 text-sm mt-1">Data yang sudah dihapus tidak dapat dikembalikan.</p>
+    </div>
+
+    <!-- Detail Data yang Akan Dihapus -->
+    <div class="bg-white border border-slate-200 p-6 rounded-lg shadow-sm mb-6">
+        <h3 class="text-xl font-bold text-slate-900 mb-2">{{ siswa.nama }}</h3>
+        <p class="text-slate-600">Umur: <span class="font-semibold">{{ siswa.umur }} tahun</span></p>
+        <p class="text-slate-600">Tanggal Lahir: <span class="font-semibold">{{ siswa.tgl_lahir|date:"d-m-Y" }}</span></p>
+    </div>
+
+    <!-- Form Submit menggunakan POST -->
+    <form method="POST" class="flex gap-3">
+        {% csrf_token %} <!-- Wajib untuk keamanan -->
+        
+        <button type="submit" class="px-4 py-2 bg-red-600 text-white rounded-lg text-sm font-medium hover:bg-red-700 transition">
+            Ya, Hapus
+        </button>
+
+        <a href="{% url 'siswa_list' %}" class="px-4 py-2 bg-slate-100 text-slate-700 rounded-lg text-sm font-medium hover:bg-slate-200 transition">
+            Batal
+        </a>
+    </form>
+</div>
+{% endblock %}
