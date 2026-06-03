@@ -57,9 +57,9 @@ from django.shortcuts import render, redirect # Tambahkan redirect
 def siswa_create(request):
     if request.method == 'POST':
         # 1. Ambil data dari form
-        nama = request.POST.get('nama')
-        umur = request.POST.get('umur')
-        tgl_lahir = request.POST.get('tgl_lahir')
+        nama = request.POST.get('nama','').strip()
+        umur = request.POST.get('umur','').strip()
+        tgl_lahir = request.POST.get('tgl_lahir','').strip()
         status_input = request.POST.get('status_hadir')
         status = (status_input == 'true')
         nilai = request.POST.get('nilai_akhir')
